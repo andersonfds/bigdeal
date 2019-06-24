@@ -1,0 +1,8 @@
+# Ignoring the config.php file
+config.php
+
+# Ignoring the thumbnails folder
+public/photos/*
+
+# Ignoring the Intellij file
+.idea
