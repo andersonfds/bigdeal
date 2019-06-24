@@ -1,0 +1,12 @@
+Options -MultiViews
+
+# Enabling Rewrite Engine
+RewriteEngine On
+
+# IF file does not exists it will call index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Blocking hotlinking
+RewriteCond expr "! %{HTTP_REFERER} -strmatch '*://%{HTTP_HOST}/*'"
+RewriteRule "^/photos" "-" [F]

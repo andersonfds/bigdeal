@@ -1,0 +1,14 @@
+@import "default.css";
+
+body {
+    background-size: 100% 100%;
+    background: linear-gradient(45deg, #6796d5, #204679) fixed;
+}
+
+.lg-error {
+    background: #ec432a;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0.5;
+}
