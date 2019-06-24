@@ -1,5 +1,0 @@
-UserAgent *
-
-Disallow photos/*
-Disallow images/*
-Disallow favicon.ico
