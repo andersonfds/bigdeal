@@ -45,3 +45,12 @@ Pretty much done! You should only follow a few more steps in order to get the pr
 
 ## Administrator
 The **first user** by default will get administrator privileges level 9. Administrators have different levels from 0 to 9, in which "0" means a "guest" login, and "9" is the highest level, which can create categories, manage users, etc.
+
+## Additional Setting for uploading Photos
+In order to actually save the uploaded images into the server, you should create a folder called `photos` inside the `public` folder. If you are using linux, you should change the permission level, so the images uploaded by users can be saved there. You can run:
+
+    cd /srv/http/bigdeal/public
+    mkdir photos
+    sudo chmod +777 -R photos
+
+If you are using Windows, just run the first two lines, or you can do it manually via File Explorer.
