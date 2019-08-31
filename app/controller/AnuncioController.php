@@ -23,7 +23,7 @@ class AnuncioController extends Controller {
     }
 
     public function create() {
-        $categories = Category::paginate(600, 0);
+        $categories = $this->getAllCategories();
         view('anuncio.edit', compact('categories'));
     }
 
@@ -63,11 +63,11 @@ class AnuncioController extends Controller {
         if (($anuncio = Anuncio::find($request->get_args()[0]))) {
             // Getting extra information such as author name etc.
             $anuncio = $this->get_extra_info($anuncio);
-            // Showing the view and sending the variable
             // Setting if it is favorite
             if ($request->get_user() != null) {
                 $anuncio->is_favorite = User::is_favorite($request->get_user()->id, $anuncio->id);
             }
+            // Showing the view and sending the variable
             view('anuncio.view', ['anuncio' => $this->formatted($anuncio)]);
         } else abort(404);
     }
@@ -100,12 +100,25 @@ class AnuncioController extends Controller {
         if ($anuncio = Anuncio::find($request->get_args()[0])) {
             if ($anuncio->author == $request->get_user()->id) {
                 // Getting all the categories available
-                $categories = Category::paginate(500, 0);
+                $categories = $this->getAllCategories();
                 // Showing the advertisement view
                 $photos = Photo::photos($anuncio->id, 4);
                 view('anuncio.edit', compact('anuncio', 'categories', 'photos'));
             } else abort(404);
         } else abort(404);
+    }
+
+    private function getAllCategories() {
+        $categories = Category::paginate(500, 0);
+        // If there is no categories, then create one
+        if (empty($categories)) {
+            $cat = new Category();
+            $cat->name = 'Outro';
+            $cat->icon = 'fas fa-boxes';
+            $cat->save();
+            $categories = Category::paginate(500, 0);
+        }
+        return $categories;
     }
 
     public function update(Request $request) {
